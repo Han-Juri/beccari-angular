@@ -8,4 +8,6 @@
     <p>Name: {{ user.name }}</p>
     <p>Surname: {{ user.surname }}</p>
     <p>Email: {{ user.email }}</p>
+    <p *ngIf="isAdmin$ | async">Password: {{ user.password }}</p>
+    <p>Teléfono: {{ user.phone }}</p>
   </div>

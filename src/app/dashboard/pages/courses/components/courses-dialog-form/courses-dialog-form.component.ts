@@ -11,15 +11,15 @@ import { Course } from '../../models';
 export class CoursesDialogFormComponent {
   editingCourse?: Course
   nameControl = new FormControl<string | null>(null, [Validators.required])
-  surnameControl = new FormControl<string | null>(null, [Validators.required])
-  emailControl = new FormControl<string | null>(null, [Validators.required])
-  passwordControl = new FormControl<string | null>(null, [Validators.required])
+  teacherControl = new FormControl<string | null>(null, [Validators.required])
+  dateControl = new FormControl<string | null>(null, [Validators.required])
+  shiftControl = new FormControl<string | null>(null, [Validators.required])
 
   courseForm = new FormGroup ({
     name: this.nameControl,
-    surname: this.surnameControl,
-    email: this.emailControl,
-    password: this.passwordControl
+    teacher: this.teacherControl,
+    date: this.dateControl,
+    shift: this.shiftControl
   })
 
   constructor(private dialogRef: MatDialogRef<CoursesDialogFormComponent>,
@@ -27,9 +27,9 @@ export class CoursesDialogFormComponent {
        if (this.data) {
         this.editingCourse = this.data
         this.nameControl.setValue(this.data.name)
-        this.surnameControl.setValue(this.data.surname)
-        this.emailControl.setValue(this.data.email)
-        this.passwordControl.setValue(this.data.password)
+        this.teacherControl.setValue(this.data.teacher)
+        this.dateControl.setValue(this.data.date)
+        this.shiftControl.setValue(this.data.shift)
        }
   }
 

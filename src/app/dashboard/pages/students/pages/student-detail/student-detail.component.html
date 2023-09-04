@@ -1,11 +1,12 @@
 <div *ngIf="student">
-    <button routerLink=".." mat-icon-button>
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-  
-    <h2>Detalles del estudiante</h2>
-    <p>ID: {{ student.id }}</p>
-    <p>Name: {{ student.name }}</p>
-    <p>Surname: {{ student.surname }}</p>
-    <p>Email: {{ student.email }}</p>
-  </div>
+  <button routerLink=".." mat-icon-button>
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <h2>Detalles del curso</h2>
+    <p>Curso: {{ student.course.name }}</p>
+    <p>Profesor: {{ student.course.teacher }}</p>
+    <p>Fecha: {{ student.course.date }}</p>
+    <p>Turno: {{ student.course.shift }}</p>
+</div>
+

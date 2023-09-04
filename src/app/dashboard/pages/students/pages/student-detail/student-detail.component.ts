@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { StudentService } from '../../student.service';
-import { Student } from '../../models';
+import { StudentWithCourse } from '../../models';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectStudent } from '../../store/student.selectors';
 
 @Component({
   selector: 'app-student-detail',
@@ -11,26 +13,20 @@ import { Student } from '../../models';
 })
 export class StudentDetailComponent implements OnInit {
 
-  public studentID?: number;
-  public student?: Student;
+  public studentId?: number;
+  public student?: StudentWithCourse;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private studentService: StudentService
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.studentID = Number(this.activatedRoute.snapshot.params['id']);
-    this.loadStudent();
+    this.studentId = Number(this.activatedRoute.snapshot.params['id']);
+
+    this.store.select(selectStudent).subscribe((students) => {
+      this.student = students.find((s) => s.id === this.studentId);
+    });
   }
 
-  loadStudent(): void {
-    if (this.studentID) {
-      this.studentService.getStudentByID(this.studentID).subscribe({
-        next: (student) => {
-          this.student = student; 
-        }
-      });
-    }
-  }
 }

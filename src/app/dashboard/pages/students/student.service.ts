@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NotifierService } from 'src/app/core/services/notifier.service';
-import { CreateStudentData, Student, UpdateStudentData } from './models';
-import { BehaviorSubject, Observable, Subject, delay, map, mergeMap, of, take } from 'rxjs';
+import { CreateStudentData, Student, StudentWithCourse, UpdateStudentData } from './models';
+import { BehaviorSubject, Observable, Subject, map, mergeMap, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { enviroment } from 'src/enviroments/enviroment';
 
@@ -10,10 +10,6 @@ import { enviroment } from 'src/enviroments/enviroment';
   providedIn: 'root'
 })
 export class StudentService {
-
-  private student: Student[] =  [
-    
-  ];
 
   private sendNotification$ = new Subject<string>()
 
@@ -44,10 +40,10 @@ export class StudentService {
   }
 
   getStudents(): Observable<Student[]> {
-    return this.students$
+    return this.httpClient.get<Student[]>(`${enviroment.baseApiUrl}/students`);
   }
 
-  getStudentByID(id: number): Observable<Student | undefined> {
+  getStudentById(id: number): Observable<Student | undefined> {
     return this.students$.pipe(
       map((students) => students.find((s) => s.id === id)), take(1))
   }
@@ -65,14 +61,14 @@ export class StudentService {
     })
   }
 
-  updateStudentByID(id: Number, updatedStudent: UpdateStudentData): void {
+  updateStudentById(id: Number, updatedStudent: UpdateStudentData): void {
 
     this.httpClient.put(enviroment.baseApiUrl +'/students/' + id, updatedStudent).subscribe({
       next: () => this.loadStudents()
     })
   }
 
-  deleteStudentByID (id: number): void {
+  deleteStudentById (id: number): void {
     
     this.httpClient.delete(enviroment.baseApiUrl +'/students/' + id)
     .pipe(
@@ -80,10 +76,16 @@ export class StudentService {
       .subscribe({
         next: (updatedArray) => this._students$.next(updatedArray)
       })
+    setTimeout(() => {
+      window.location.reload();
+    }, 100)
   }
 
-  getStudentsByComissionId(comissionId: number): Observable<Student[]> {
-    return this.httpClient.get<Student[]>(enviroment.baseApiUrl + `/students?comissionId=${comissionId}`)
+  getStudentsByComissionId(comissionId: number): Observable<StudentWithCourse[]> {
+    return this.httpClient.get<StudentWithCourse[]>(`${enviroment.baseApiUrl}/students?comissionId=${comissionId}`)
+    .pipe(
+      map((students: StudentWithCourse[]) => students.filter(student => student.courseId === comissionId))
+    );
   }
 
 }

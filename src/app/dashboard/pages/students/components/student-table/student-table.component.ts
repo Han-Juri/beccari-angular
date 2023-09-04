@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Student } from '../../models';
+import { Student, StudentWithCourse } from '../../models';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectIsAdmin } from 'src/app/store/auth/auth.selector';
+import { selectStudent } from '../../store/student.selectors';
 
 @Component({
   selector: 'app-student-table',
@@ -8,7 +12,15 @@ import { Student } from '../../models';
 })
 export class StudentTableComponent {
 
-  displayedColumns: string[] = ['id', 'fullName', 'email', 'actions'];
+  studentWithCourse$: Observable<StudentWithCourse[]>
+  public isAdmin$: Observable<boolean>
+
+  constructor(private store: Store) {
+    this.isAdmin$ = this.store.select(selectIsAdmin)
+    this.studentWithCourse$ = this.store.select(selectStudent)
+  }
+
+  displayedColumns: string[] = ['fullName', 'email', 'phone', 'course', 'details', 'actions'];
 
   @Input()
   dataSource: Student[] = []

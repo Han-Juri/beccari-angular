@@ -28,10 +28,8 @@ export class ComissionsComponent {
       next: (v) => {
         if (v){
           this.comissionService.createComission({
-              name: v.name,
-              email: v.email,
-              password: v.password,
-              surname: v.surname,
+              id: v.id,
+              course: v.course
             });
         }
       }
@@ -39,7 +37,7 @@ export class ComissionsComponent {
   }
 
   onDeleteComission(comissionToDelete: Comission): void {
-    if (confirm(`¿Esta seguro de eliminar a ${comissionToDelete.name}?`)) {
+    if (confirm(`¿Esta seguro de eliminar a ${comissionToDelete.course}?`)) {
       this.comissionService.deleteComissionByID(comissionToDelete.id)
     }
   }

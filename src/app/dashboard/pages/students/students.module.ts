@@ -6,6 +6,10 @@ import { StudentFormDialogModule } from './components/student-form-dialog/studen
 import { StudentTableComponent } from './components/student-table/student-table.component';
 import { RouterModule } from '@angular/router';
 import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StudentEffects } from './store/student.effects';
+import { StoreModule } from '@ngrx/store';
+import { studentFeature } from './store/student.reducer';
 
 
 
@@ -19,7 +23,9 @@ import { StudentDetailComponent } from './pages/student-detail/student-detail.co
     CommonModule,
     SharedModule,
     StudentFormDialogModule,
-    RouterModule
+    RouterModule,
+    StoreModule.forFeature(studentFeature),
+    EffectsModule.forFeature([StudentEffects])
   ],
   exports: [
     StudentsComponent

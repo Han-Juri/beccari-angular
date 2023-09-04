@@ -10,26 +10,26 @@ import { Comission } from '../../models';
 })
 export class ComissionsDialogFormComponent {
   editingComission?: Comission
-  nameControl = new FormControl<string | null>(null, [Validators.required])
-  surnameControl = new FormControl<string | null>(null, [Validators.required])
-  emailControl = new FormControl<string | null>(null, [Validators.required])
-  passwordControl = new FormControl<string | null>(null, [Validators.required])
+  courseControl = new FormControl<string | null>(null, [Validators.required])
+  courseIdControl = new FormControl<Number | null>(null, [Validators.required])
+  teacherControl = new FormControl<string | null>(null, [Validators.required])
+  dateControl = new FormControl<string | null>(null, [Validators.required])
 
   comissionForm = new FormGroup ({
-    name: this.nameControl,
-    surname: this.surnameControl,
-    email: this.emailControl,
-    password: this.passwordControl
+    course: this.courseControl,
+    courseId: this.courseControl,
+    teacher: this.teacherControl,
+    date: this.dateControl,
   })
 
   constructor(private dialogRef: MatDialogRef<ComissionsDialogFormComponent>,
       @Inject(MAT_DIALOG_DATA) private data?: Comission,) {
        if (this.data) {
         this.editingComission = this.data
-        this.nameControl.setValue(this.data.name)
-        this.surnameControl.setValue(this.data.surname)
-        this.emailControl.setValue(this.data.email)
-        this.passwordControl.setValue(this.data.password)
+        this.courseControl.setValue(this.data.course.name)
+        this.courseIdControl.setValue(this.data.course.id)
+        this.teacherControl.setValue(this.data.course.teacher)
+        this.dateControl.setValue(this.data.course.date)
        }
   }
 

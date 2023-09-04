@@ -6,11 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { generateRandomString } from 'src/app/shared/utils/helpers';
 import { enviroment } from 'src/enviroments/enviroment';
 
-/* const USER_DB: Observable<User[]> =  of([
-    {id: 1, name: 'Juri', surname: 'Han', email: 'hanJuri@testmail', password: '1235'},
-    {id: 2, name: 'Chun', surname: 'Li', email: 'chunli@testmail', password: '1235'},
-    {id: 3, name: 'Cammy', surname: 'White', email: 'cammywhite@testmail', password: '1235'}
-]).pipe(delay(1000)) */
 
 @Injectable({
   providedIn: 'root'

@@ -9,6 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { FullNamePipe } from './pipes/full-name.pipe';
 import { Encabezado20Directive } from './directives/encabezado20.directive';
+import { MatSelectModule } from '@angular/material/select'
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { Encabezado20Directive } from './directives/encabezado20.directive';
     MatInputModule,
     MatFormFieldModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ]
 })
 export class SharedModule { }

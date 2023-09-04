@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="(studentWithCourse$ |async) || []" class="mat-elevation-z8">
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef appEncabezado20> ID </th>
@@ -15,16 +15,32 @@
       <td mat-cell *matCellDef="let student"> {{ student.email }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef appEncabezado20> Acciones </th>
-      <td mat-cell *matCellDef="let student"> 
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef appEncabezado20> Teléfono </th>
+      <td mat-cell *matCellDef="let student"> {{ student.phone }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef appEncabezado20> Curso </th>
+      <td mat-cell *matCellDef="let student"> {{ student.course.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef appEncabezado20> Detalle del curso </th>
+      <td mat-cell *matCellDef="let student">
         <button [routerLink]="student.id" mat-icon-button color="primary">
           <mat-icon>visibility</mat-icon>
-        </button>   
-        <button (click)="editStudent.emit(student)" mat-icon-button color="primary">
+        </button>  
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef appEncabezado20> Actualizar o Borrar </th>
+      <td mat-cell *matCellDef="let student"> 
+        <button [disabled]="!(isAdmin$ | async)" (click)="editStudent.emit(student)" mat-icon-button color="primary">
           <mat-icon>edit</mat-icon>
         </button>   
-        <button (click)="deleteStudent.emit(student)" mat-icon-button color="warn">
+        <button [disabled]="!(isAdmin$ | async)" (click)="deleteStudent.emit(student)" mat-icon-button color="warn">
           <mat-icon>delete</mat-icon>
         </button>   
       </td>

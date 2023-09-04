@@ -14,12 +14,16 @@ export class UserFormDialogComponent {
   surnameControl = new FormControl<string | null>(null, [Validators.required])
   emailControl = new FormControl<string | null>(null, [Validators.required])
   passwordControl = new FormControl<string | null>(null, [Validators.required])
+  phoneControl = new FormControl<string | null>(null, [Validators.required])
+  roleControl = new FormControl<string | null>(null, [Validators.required])
 
   userForm = new FormGroup ({
     name: this.nameControl,
     surname: this.surnameControl,
     email: this.emailControl,
-    password: this.passwordControl
+    phone: this.phoneControl,
+    password: this.passwordControl,
+    role: this.roleControl
   })
 
   constructor(private dialogRef: MatDialogRef<UserFormDialogComponent>,
@@ -30,6 +34,8 @@ export class UserFormDialogComponent {
         this.surnameControl.setValue(this.data.surname)
         this.emailControl.setValue(this.data.email)
         this.passwordControl.setValue(this.data.password)
+        this.phoneControl.setValue(this.data.phone)
+        this.roleControl.setValue(this.data.role)
        }
   }
 
@@ -38,7 +44,18 @@ export class UserFormDialogComponent {
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched()
     } else {
-      this.dialogRef.close(this.userForm.value)
+      const payLoad: any = {
+        ...this.userForm.value
+      }
+
+      if(this.editingUser) {
+        payLoad['token'] = this.editingUser.token
+      }
+
+      this.dialogRef.close(payLoad)
+      setTimeout(() => {
+        window.location.reload();
+      }, 100)
     }
   }
 }

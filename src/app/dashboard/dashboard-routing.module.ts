@@ -8,7 +8,8 @@ import { StudentDetailComponent } from "./pages/students/pages/student-detail/st
 import { CoursesComponent } from "./pages/courses/courses.component";
 import { CourseDetailComponent } from "./pages/courses/pages/course-detail/course-detail.component";
 import { ComissionsComponent } from "./pages/comissions/comissions.component";
-import { ComissionsDetailComponent } from "./pages/comissions/pages/comissions-detail/comissions-detail.component";
+import { ComissionDetailComponent } from "./pages/comissions/pages/comissions-detail/comissions-detail.component";
+import { adminGuard } from "../core/guards/admin.guard";
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import { ComissionsDetailComponent } from "./pages/comissions/pages/comissions-d
               },
               {
                 path: 'users',
+                canActivate: [adminGuard],
                 component: UsersComponent
               },
               {
@@ -47,7 +49,7 @@ import { ComissionsDetailComponent } from "./pages/comissions/pages/comissions-d
               },
               {
                 path: 'comissions/:id',
-                component: ComissionsDetailComponent
+                component: ComissionDetailComponent
               },
               {
                 path: '**',

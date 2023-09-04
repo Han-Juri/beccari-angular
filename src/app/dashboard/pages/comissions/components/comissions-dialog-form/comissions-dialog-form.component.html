@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>{{ editingComission ? 'Editar a ' + editingComission.name + ' ' + editingComission.surname : 'Agregar usuario' }}</h2>
+<h2 mat-dialog-title>{{ editingComission ? 'Edición de ' + editingComission.course.name : 'Agregar comision' }}</h2>
 <div mat-dialog-content>    
     <form [formGroup]="comissionForm" class="grid">
         <div class="col-6 field">
             <mat-form-field>
-                <mat-label>Nombre</mat-label>
-                <input formControlName="name" matInput type="text" name="name">
-                <mat-error *ngIf="nameControl.hasError('required')">
+                <mat-label>Curso</mat-label>
+                <input formControlName="course" matInput type="text" name="course">
+                <mat-error *ngIf="courseControl.hasError('required')">
                     Este campo es requerido.
                 </mat-error>
             </mat-form-field>
@@ -13,9 +13,9 @@
 
         <div class="col-6 field">
             <mat-form-field>
-                <mat-label>Apellido</mat-label>
-                <input formControlName="surname" matInput type="text" name="surname">
-                <mat-error *ngIf="surnameControl.hasError('required')">
+                <mat-label>Id del curso</mat-label>
+                <input formControlName="course" matInput type="text" name="course">
+                <mat-error *ngIf="courseControl.hasError('required')">
                     Este campo es requerido.
                 </mat-error>
             </mat-form-field>
@@ -23,9 +23,9 @@
 
         <div class="col-6 field">
             <mat-form-field>
-                <mat-label>Email</mat-label>
-                <input formControlName="email" matInput type="email" name="email">
-                <mat-error *ngIf="emailControl.hasError('required')">
+                <mat-label>Profesor</mat-label>
+                <input formControlName="teacher" matInput type="text" name="teacher">
+                <mat-error *ngIf="teacherControl.hasError('required')">
                     Este campo es requerido.
                 </mat-error>
             </mat-form-field>
@@ -33,9 +33,9 @@
 
         <div class="col-6 field">
             <mat-form-field>
-                <mat-label>Contraseña</mat-label>
-                <input formControlName="password" matInput type="password" name="password">
-                <mat-error *ngIf="passwordControl.hasError('required')">
+                <mat-label>Fecha</mat-label>
+                <input formControlName="date" matInput type="text" name="date">
+                <mat-error *ngIf="dateControl.hasError('required')">
                     Este campo es requerido.
                 </mat-error>
             </mat-form-field>

@@ -1,10 +1,13 @@
+import { Course } from "../../courses/models";
+
 export interface Student {
     id: number;
     name: string;
     surname: string;
     email: string;
     password: string;
-    comissionID: number;
+    phone: string;
+    courseId: number;
 }
 
 export interface CreateStudentData {
@@ -12,6 +15,8 @@ export interface CreateStudentData {
     surname: string;
     email: string;
     password: string;
+    phone: string;
+    courseId: number;
 }
 
 export interface UpdateStudentData {
@@ -19,4 +24,10 @@ export interface UpdateStudentData {
     surname?: string;
     email?: string;
     password?: string;
+    phone?: string;
+    courseId?: number;
+}
+
+export interface StudentWithCourse extends Student {
+    course: Course;
 }

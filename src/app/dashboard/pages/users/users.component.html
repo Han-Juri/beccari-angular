@@ -1,10 +1,12 @@
-<button (click)="onCreateUser()" class="example-icon m-3" type="button" mat-button color="primary">
+<button [disabled]="!(isAdmin$ | async)" (click)="onCreateUser()" class="example-icon m-3" type="button" mat-button color="primary">
     <mat-icon>add</mat-icon> Agregar usuario
 </button>
 
 
-<div *ngIf="isLoading$ | async; else notLoading">Esta cargando...</div>
+<div *ngIf="isAdmin$ | async">
+    <div *ngIf="isLoading$ | async; else notLoading">Esta cargando...</div>
 
-<ng-template #notLoading>
-    <app-users-table [dataSource]="(users | async) || []" (deleteUser)="onDeleteUser($event)" (editUser)="userToEdit($event)"></app-users-table>
-</ng-template>
+    <ng-template #notLoading>
+        <app-users-table [dataSource]="(users | async) || []" (deleteUser)="onDeleteUser($event)" (editUser)="userToEdit($event)"></app-users-table>
+    </ng-template>
+</div>

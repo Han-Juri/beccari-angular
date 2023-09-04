@@ -1,24 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentFormDialogComponent } from './components/student-form-dialog/student-form-dialog.component';
 import { Student } from './models';
 import { StudentService } from './student.service';
 import { NotifierService } from 'src/app/core/services/notifier.service';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectIsAdmin } from 'src/app/store/auth/auth.selector';
+import { StudentActions } from './store/student.actions';
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
 })
-export class StudentsComponent {
+export class StudentsComponent implements OnInit{
 
   public students: Observable<Student[]>;
+  public isAdmin$: Observable<boolean>
 
-  constructor(private matDialog: MatDialog, private studentService: StudentService, private notifier: NotifierService) {
+  constructor(private matDialog: MatDialog, private studentService: StudentService, private notifier: NotifierService, private store: Store) {
     
     this.studentService.loadStudents()
     this.students = this.studentService.getStudents()
+    this.isAdmin$ = this.store.select(selectIsAdmin)
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(StudentActions.loadStudents())
   }
 
   onCreateStudent(): void {
@@ -32,6 +41,8 @@ export class StudentsComponent {
               email: v.email,
               password: v.password,
               surname: v.surname,
+              phone: v.phone,
+              courseId: v.comissionId
             });
         }
       }
@@ -40,7 +51,7 @@ export class StudentsComponent {
 
   onDeleteStudent(studentToDelete: Student): void {
     if (confirm(`¿Esta seguro de eliminar a ${studentToDelete.name}?`)) {
-      this.studentService.deleteStudentByID(studentToDelete.id)
+      this.studentService.deleteStudentById(studentToDelete.id)
     }
   }
 
@@ -52,7 +63,7 @@ export class StudentsComponent {
     dialogRef.afterClosed().subscribe({
       next: (studentUpdated) => {
         if (studentUpdated) {
-          this.studentService.updateStudentByID(studentToEdit.id, studentUpdated)
+          this.studentService.updateStudentById(studentToEdit.id, studentUpdated)
         }
       }
     })

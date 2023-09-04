@@ -1,21 +1,16 @@
+import { Course } from "../../courses/models";
+
 export interface Comission {
     id: number;
-    name: string;
-    surname: string;
-    email: string;
-    password: string;
+    course: Course;
 }
 
 export interface CreateComissionData {
-    name: string;
-    surname: string;
-    email: string;
-    password: string;
+    id: number;
+    course: Course;
 }
 
 export interface UpdateComissionData {
-    name?: string;
-    surname?: string;
-    email?: string;
-    password?: string;
+    id?: number;
+    course?: Course;
 }

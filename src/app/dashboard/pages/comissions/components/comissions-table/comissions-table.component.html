@@ -1,35 +1,43 @@
-<table mat-table [dataSource]="(comissions$ | async) || []" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef appEncabezado20> ID </th>
-      <td mat-cell *matCellDef="let course"> {{ course.id }} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="fullName">
-      <th mat-header-cell *matHeaderCellDef appEncabezado20> Nombre y Apellido </th>
-      <td mat-cell *matCellDef="let comission"> {{ comission | fullName }} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef appEncabezado20> Email </th>
-      <td mat-cell *matCellDef="let comission"> {{ comission.email }} </td>
-    </ng-container>
+  <ng-container matColumnDef="course">
+    <th mat-header-cell *matHeaderCellDef appEncabezado20> Curso </th>
+    <td mat-cell *matCellDef="let comission"> {{ comission.course.name }} </td>
+  </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef appEncabezado20> Acciones </th>
-      <td mat-cell *matCellDef="let comission"> 
-        <button [routerLink]="comission.id" mat-icon-button color="primary">
-          <mat-icon>visibility</mat-icon>
-        </button>   
-        <button (click)="editComission.emit(comission)" mat-icon-button color="primary">
-          <mat-icon>edit</mat-icon>
-        </button>   
-        <button (click)="deleteComission.emit(comission)" mat-icon-button color="warn">
-          <mat-icon>delete</mat-icon>
-        </button>   
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <ng-container matColumnDef="teacher">
+    <th mat-header-cell *matHeaderCellDef appEncabezado20> Profesor </th>
+    <td mat-cell *matCellDef="let comission"> {{ comission.course.teacher }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef appEncabezado20> Fecha </th>
+    <td mat-cell *matCellDef="let comission"> {{ comission.course.date }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="students">
+    <th mat-header-cell *matHeaderCellDef appEncabezado20> Estudiantes </th>
+    <td mat-cell *matCellDef="let comission"> 
+      <button [routerLink]="comission.id" mat-icon-button color="primary">
+        <mat-icon>visibility</mat-icon>
+      </button>   
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef appEncabezado20> Acciones </th>
+    <td mat-cell *matCellDef="let comission"> 
+      <button [routerLink]="comission.id" mat-icon-button color="primary">
+        <mat-icon>visibility</mat-icon>
+      </button>   
+      <button (click)="editComission.emit(comission)" mat-icon-button color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>   
+      <button (click)="deleteComission.emit(comission)" mat-icon-button color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>   
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
