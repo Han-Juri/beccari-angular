@@ -76,6 +76,15 @@
       "phone": "1522019227",
       "courseId": 2,
       "id": 5
+    },
+    {
+      "name": "Cammy",
+      "surname": "White",
+      "email": "cammywhite@testmail.com",
+      "password": "1235",
+      "phone": "1522019227",
+      "courseId": 3,
+      "id": 6
     }
   ],
   "courses": [
@@ -104,37 +113,27 @@
   "comissions": [
     {
       "id": 1,
-      "course": {
-        "name": "Fatalities",
-        "teacher": "Sub-Zero",
-        "date": "10/5/2024",
-        "shift": "Matutino",
-        "id": 1
-      }
+      "courseId": 1
     },
     {
       "id": 2,
-      "course": {
-        "name": "Parry",
-        "teacher": "Ken",
-        "date": "14/2/2024",
-        "shift": "Matutino",
-        "id": 3
-      }
+      "courseId": 3
     },
     {
-      "id": 3,
-      "course": {
-        "id": 2,
-        "name": "Safe Overhead",
-        "teacher": "Chun-Li",
-        "date": "20/10/2023",
-        "shift": "Vespertino"
-      }
-    },
-    {
-      "course": "4",
+      "courseId": 2,
       "id": 4
+    },
+    {
+      "courseId": 3,
+      "id": 5
+    },
+    {
+      "courseId": 1,
+      "id": 6
+    },
+    {
+      "courseId": 2,
+      "id": 7
     }
   ]
 }
