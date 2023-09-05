@@ -2,4 +2,4 @@
     <mat-icon>add</mat-icon> Agregar comision
 </button>
 
-<app-comissions-table [dataSource]="(comissions | async) || []" (deleteComission)="onDeleteComission($event)" (editComission)="comissionToEdit($event)"></app-comissions-table>
+<app-comissions-table [dataSource]="(comissions$ | async) || []" (deleteComission)="onDeleteComission($event)" (editComission)="comissionToEdit($event)"></app-comissions-table>

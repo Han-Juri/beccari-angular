@@ -38,7 +38,7 @@ export class ComissionDetailComponent implements OnInit {
 
   loadStudentsInComission(): void {
     if (this.comissionId !== undefined && this.comission) {
-      this.studentService.getStudentsByComissionId(this.comission.course.id).subscribe((students) => {
+      this.studentService.getStudentsByComissionId(this.comission.courseId).subscribe((students) => {
         this.students = students;
       });
     }

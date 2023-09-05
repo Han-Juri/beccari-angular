@@ -2,15 +2,19 @@ import { Course } from "../../courses/models";
 
 export interface Comission {
     id: number;
-    course: Course;
+    courseId: number;
 }
 
 export interface CreateComissionData {
     id: number;
-    course: Course;
+    courseId: number;
 }
 
 export interface UpdateComissionData {
     id?: number;
-    course?: Course;
+    courseId?: number;
+}
+
+export interface ComissionWithCourse extends Comission{
+    course: Course;
 }

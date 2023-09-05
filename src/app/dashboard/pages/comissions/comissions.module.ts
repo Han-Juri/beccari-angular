@@ -6,6 +6,10 @@ import { ComissionDetailComponent } from './pages/comissions-detail/comissions-d
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ComissionsDialogFormModule } from './components/comissions-dialog-form/comissions-dialog-form.module';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { ComissionEffects } from './store/comission.effects';
+import { StoreModule } from '@ngrx/store';
+import { comissionFeature } from './store/comission.reducer';
 
 
 
@@ -19,7 +23,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     SharedModule,
     ComissionsDialogFormModule,
-    RouterModule
+    RouterModule,
+    StoreModule.forFeature(comissionFeature),
+    EffectsModule.forFeature([ComissionEffects])
   ],
   exports: [
     ComissionsComponent

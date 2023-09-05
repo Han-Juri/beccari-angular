@@ -1,24 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ComissionsDialogFormComponent } from './components/comissions-dialog-form/comissions-dialog-form.component';
-import { Comission } from './models';
+import { Comission, ComissionWithCourse } from './models';
 import { ComissionsService } from './comissions.service';
-import { NotifierService } from 'src/app/core/services/notifier.service';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { ComissionActions } from './store/comission.actions';
+import { selectComisions } from './store/comission.selectors';
 
 @Component({
   selector: 'app-comissions',
   templateUrl: './comissions.component.html',
   styleUrls: ['./comissions.component.scss']
 })
-export class ComissionsComponent {
+export class ComissionsComponent implements OnInit{
 
-  public comissions: Observable<Comission[]>;
+  public comissions$: Observable<ComissionWithCourse[]>;
 
-  constructor(private matDialog: MatDialog, private comissionService: ComissionsService, private notifier: NotifierService) {
+  constructor(private matDialog: MatDialog, private comissionService: ComissionsService, private store: Store) {
     
     this.comissionService.loadComissions()
-    this.comissions = this.comissionService.getComissions()
+    this.comissions$ = this.store.select(selectComisions)
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(ComissionActions.loadComissions())
   }
 
   onCreateComission(): void {
@@ -29,7 +35,7 @@ export class ComissionsComponent {
         if (v){
           this.comissionService.createComission({
               id: v.id,
-              course: v.course
+              courseId: v.courseId
             });
         }
       }
@@ -37,7 +43,7 @@ export class ComissionsComponent {
   }
 
   onDeleteComission(comissionToDelete: Comission): void {
-    if (confirm(`¿Esta seguro de eliminar a ${comissionToDelete.course}?`)) {
+    if (confirm(`¿Esta seguro de eliminar a ${comissionToDelete}?`)) {
       this.comissionService.deleteComissionByID(comissionToDelete.id)
     }
   }
